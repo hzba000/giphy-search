@@ -22,7 +22,7 @@
 <li>I would add animations to enhance the user experience a little bit. I think that the animations would add some fun to a very visual app that people look at to have a good time</li>
 <li>I would add some more functionality...maybe mash it up with another third party API to create some fun combinations</li>
 <li>I would like the ability to click on a gif, and emphasize it in a shadow box</li>
-<li>The fonts, color scheme could work together a little better to make it easier to see</li>
+<li>The fonts and color scheme could work together a little better to make it easier to see</li>
 <li>It could be nice to have a backend that can process and store user favorites</li>
 <li>I noticed in the documentation that there are some custom APIs listed. I could have predictive search. That would improve the user experience</li>
 <li>Have people try the app out so that I can iron out the bugs that I know must exist</li>
