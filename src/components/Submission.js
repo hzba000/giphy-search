@@ -64,7 +64,7 @@ export default class Submission extends React.Component{
                         <input placeholder="Look up something cool" ref={input => this.Submission = input}></input>
                         <button type="submit" onClick={this.firstClick}> Submit </button>
                     </form>
-                    <div className="home-container"><img src="../santa.gif" alt="santa"/><h2>Start looking for fun gifs above!</h2></div>
+                    <div className="home-container"><img src="https://github.com/hzba000/giphy-search/blob/master/public/santa.gif" alt="santa"/><h2>Start looking for fun gifs above!</h2></div>
                  </div>
             )
         }
