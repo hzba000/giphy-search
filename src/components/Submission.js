@@ -33,7 +33,7 @@ export default class Submission extends React.Component{
     }
 
     fetchGiphyData(userSubmission){
-        fetch(`http://api.giphy.com/v1/gifs/search?q=${userSubmission}&limit=24&api_key=OCCArgS2EYvkFFV3JhFhd64xt5zIKxDT`)
+        fetch(`https://sheltered-oasis-13181.herokuapp.com/http://api.giphy.com/v1/gifs/search?q=${userSubmission}&limit=24&api_key=OCCArgS2EYvkFFV3JhFhd64xt5zIKxDT`)
         .then(response => {
           return response.json();
         })
