@@ -11,6 +11,7 @@ export default class Submission extends React.Component{
             click: false,
             urlArray: null,
             searchTerm: null,
+            emptyarray:false,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetchGiphyData = this.fetchGiphyData.bind(this);
@@ -35,26 +36,39 @@ export default class Submission extends React.Component{
     fetchGiphyData(userSubmission){
         fetch(`https://sheltered-oasis-13181.herokuapp.com/http://api.giphy.com/v1/gifs/search?q=${userSubmission}&limit=24&api_key=OCCArgS2EYvkFFV3JhFhd64xt5zIKxDT`)
         .then(response => {
-          return response.json();
+            if(response.ok){
+                return response.json();
+            }
+            throw new Error('Sorry, an error occurred!');
         })
         .then(myJson => {
           urlArray = [];
-          //The first for loop allows us to enter our data array, the second searches for the existence of images key, if it exists, we push it to our global array
-          for(let i=0; i<myJson.data.length; i++){
-              for(let key in myJson.data[i]){
-                  if(key==='images'){
-                      urlArray.push(myJson.data[i][key].fixed_height.url);
-                  }
-              }
+
+          if(myJson.data.length < 1){
+              this.setState({emptyarray:true});
           }
-          this.setState({urlArray:urlArray});
+
+          if(myJson.data.length > 0){
+              this.setState({emptyarray:false});
+                        //The first for loop allows us to enter our data array, the second searches for the existence of images key, if it exists, we push it to our global array
+          for(let i=0; i<myJson.data.length; i++){
+            for(let key in myJson.data[i]){
+                if(key==='images'){
+                    urlArray.push(myJson.data[i][key].fixed_height.url);
+                }
+            }
+        }
+        this.setState({urlArray:urlArray});
+
+          }
+
         });
     }
 
 
     render(){
         //Takes the image urls held in our global array and prepares them to be added to the DOM via JSX
-        const images = urlArray.map(image=><div className="image-holder"><a href={image} target="_blank" rel="noopener noreferrer"><img src={image} key={image} alt="gif-choice" /></a></div>);
+        const images = urlArray.map(image=><div className="image-holder" key={image} ><a href={image} target="_blank" rel="noopener noreferrer"><img src={image} alt="gif-choice" /></a></div>);
 
         //First render view -- landing -- we see the search bar, welcome message and SANTA
         if(this.state.click===false){
@@ -70,14 +84,14 @@ export default class Submission extends React.Component{
         }
 
         //Second render view - If there are no gifs in our global array and the user has clicked past the landing view, show no results
-        if(urlArray.length===0 && this.state.click ===true){
+        if(this.state.emptyarray===true && this.state.click ===true){
             return(
                 <div className="submission-holder">
                     <form className = "test" onSubmit = {this.handleSubmit}  >
                         <input placeholder="Look up something cool" ref={input => this.Submission = input}></input>
                         <button type="submit" onClick={this.firstClick}> Submit </button>
                     </form>
-                    <div classname="error-container"><h2>Hmmmm...didn't turn up any results! Try again.</h2></div>
+                    <div className="error-container"><h2>Hmmmm...didn't turn up any results! Try again.</h2></div>
                 </div> 
             )
         }
